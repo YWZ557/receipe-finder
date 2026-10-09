@@ -1,0 +1,581 @@
+/* ==========================================================================
+   zyw 作品集 · Recipe Finder
+   视觉规范：项目根目录 design.md（v1.0）
+   颜色 / 字号 / 间距 / 圆角一律引用本文件的 CSS 变量，禁止在此硬编码其他值。
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. 设计令牌  ——  与 design.md §1–§4 一一对应
+   -------------------------------------------------------------------------- */
+:root {
+  /* 配色 */
+  --bg: #041816;
+  --surface: #182626;
+  --surface-hover: #1E2E2D;
+  --border: rgba(255, 255, 255, 0.06);
+  --border-strong: rgba(255, 255, 255, 0.12);
+  --primary: #EC445D;
+  --primary-hover: #F35B72;
+  --primary-active: #D6374E;
+  --primary-soft: rgba(236, 68, 93, 0.14);
+  --neutral: #5F6E68;
+  --neutral-hover: #6C7B75;
+  --text: #FFFFFF;
+  --text-secondary: #A9BBB7;
+  --text-muted: #8B9D99;
+  --ring: rgba(236, 68, 93, 0.45);
+
+  /* 字体 */
+  --font: "Inter", "Segoe UI", system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+  --fs-h1: 48px;        --lh-h1: 1.25;
+  --fs-h2: 32px;        --lh-h2: 1.25;
+  --fs-h3: 18px;        --lh-h3: 1.4;
+  --fs-lead: 18px;      --lh-lead: 1.6;
+  --fs-body: 16px;      --lh-body: 1.6;
+  --fs-small: 14px;     --lh-small: 1.6;
+  --fs-caption: 14px;   --lh-caption: 1.5;
+  --fs-button: 16px;
+  --fs-nav: 14px;
+  --fs-chip: 12px;
+
+  /* 间距 */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
+
+  /* 圆角 */
+  --radius-sm: 12px;
+  --radius-lg: 28px;
+  --radius-full: 999px;
+
+  /* 布局与动效 */
+  --container: 672px;
+  --nav-h: 64px;
+  --transition: 0.2s ease;
+}
+
+/* --------------------------------------------------------------------------
+   2. 基础重置
+   -------------------------------------------------------------------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  background-color: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+  border-radius: var(--space-1);
+}
+
+.hidden {
+  display: none;
+}
+
+/* --------------------------------------------------------------------------
+   3. 布局容器
+   -------------------------------------------------------------------------- */
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+
+/* --------------------------------------------------------------------------
+   4. 导航栏  —— design.md §4.3
+   -------------------------------------------------------------------------- */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: var(--nav-h);
+  background: rgba(4, 24, 22, 0.85);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--text);
+  font-size: var(--fs-body);
+  font-weight: 700;
+}
+
+.brand:hover {
+  text-decoration: none;
+}
+
+.brand-dot {
+  width: var(--space-2);
+  height: var(--space-2);
+  border-radius: var(--radius-full);
+  background: var(--primary);
+}
+
+.nav-link {
+  font-size: var(--fs-nav);
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: color var(--transition);
+}
+
+.nav-link:hover {
+  color: var(--text);
+  text-decoration: none;
+}
+
+/* --------------------------------------------------------------------------
+   5. 首屏  —— design.md §3.2 纵向节奏
+   -------------------------------------------------------------------------- */
+.hero {
+  padding: var(--space-24) 0;
+  text-align: center;
+}
+
+.hero-dot {
+  display: block;
+  width: var(--space-8);
+  height: var(--space-8);
+  margin: 0 auto;
+  border-radius: var(--radius-full);
+  background: var(--primary);
+}
+
+.hero-title {
+  margin-top: var(--space-12);
+  font-size: var(--fs-h1);
+  line-height: var(--lh-h1);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  text-wrap: balance;
+}
+
+.hero-lead {
+  margin-top: var(--space-6);
+  font-size: var(--fs-lead);
+  line-height: var(--lh-lead);
+  font-weight: 400;
+  color: var(--text-secondary);
+  text-wrap: balance;
+}
+
+.hero-actions {
+  margin-top: var(--space-10);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+.hero-note {
+  margin-top: var(--space-4);
+  font-size: var(--fs-caption);
+  line-height: var(--lh-caption);
+  color: var(--text-muted);
+}
+
+/* --------------------------------------------------------------------------
+   6. 按钮  —— design.md §4.1
+   -------------------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  height: var(--space-12);
+  padding: 0 var(--space-6);
+  border: none;
+  border-radius: var(--radius-full);
+  font-size: var(--fs-button);
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color var(--transition), color var(--transition);
+}
+
+.btn:hover {
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: var(--text);
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+}
+
+.btn-primary:active {
+  background: var(--primary-active);
+}
+
+.btn-secondary {
+  background: var(--neutral);
+  color: var(--text);
+}
+
+.btn-secondary:hover {
+  background: var(--neutral-hover);
+}
+
+.btn-ghost {
+  height: var(--space-10);
+  padding: 0 var(--space-4);
+  background: transparent;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+}
+
+.btn-ghost:hover {
+  background: var(--primary);
+  color: var(--text);
+}
+
+/* --------------------------------------------------------------------------
+   7. 区块标题
+   -------------------------------------------------------------------------- */
+.section-title {
+  font-size: var(--fs-h2);
+  line-height: var(--lh-h2);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  text-align: center;
+}
+
+.works {
+  padding-bottom: var(--space-24);
+}
+
+.works .section-title {
+  margin-bottom: var(--space-12);
+}
+
+.result-heading {
+  margin-bottom: var(--space-6);
+  font-size: var(--fs-body);
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+/* --------------------------------------------------------------------------
+   8. 卡片网格  —— design.md §4.2 / §5
+   -------------------------------------------------------------------------- */
+.meals-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--space-4);
+}
+
+.meal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  cursor: pointer;
+  transition: background-color var(--transition), border-color var(--transition),
+    transform var(--transition);
+}
+
+.meal:hover {
+  background: var(--surface-hover);
+  border-color: var(--border-strong);
+  transform: translateY(-2px);
+}
+
+.meal img {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.meal-info {
+  padding: var(--space-6);
+}
+
+.meal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.meal-title {
+  font-size: var(--fs-h3);
+  line-height: var(--lh-h3);
+  font-weight: 600;
+  color: var(--text);
+}
+
+.meal-desc {
+  margin-top: var(--space-2);
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
+  color: var(--text-secondary);
+}
+
+.meal-category {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  height: 26px;
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-full);
+  background: var(--primary-soft);
+  color: #FF8296;
+  font-size: var(--fs-chip);
+  font-weight: 500;
+  line-height: 1;
+}
+
+/* 通用标签（详情面板内使用） */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  height: 26px;
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-size: var(--fs-chip);
+  font-weight: 500;
+  line-height: 1;
+}
+
+/* --------------------------------------------------------------------------
+   9. 面板（菜谱详情）  —— design.md §4.5
+   -------------------------------------------------------------------------- */
+.panel {
+  grid-column: 1 / -1;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+}
+
+#back-btn {
+  margin-bottom: var(--space-6);
+}
+
+.meal-details-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.meal-details-img {
+  width: 100%;
+  max-width: 400px;
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-6);
+}
+
+.meal-details-title {
+  font-size: var(--fs-h2);
+  line-height: var(--lh-h2);
+  font-weight: 700;
+  color: var(--text);
+  text-align: center;
+}
+
+.meal-details-category {
+  margin: var(--space-3) 0 var(--space-6);
+}
+
+.meal-details-instructions {
+  margin-bottom: var(--space-6);
+  color: var(--text-secondary);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+}
+
+.meal-details-instructions h3,
+.meal-details-ingredients h3 {
+  margin-bottom: var(--space-2);
+  font-size: var(--fs-h3);
+  line-height: var(--lh-h3);
+  font-weight: 600;
+  color: var(--text);
+}
+
+.ingredients-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+  width: 100%;
+}
+
+.ingredients-list li {
+  display: flex;
+  align-items: center;
+  padding: var(--space-2) var(--space-3);
+  background: var(--bg);
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-small);
+  color: var(--text-secondary);
+}
+
+.ingredients-list li i {
+  margin-right: var(--space-2);
+  color: var(--primary);
+}
+
+.youtube-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  height: var(--space-12);
+  padding: 0 var(--space-6);
+  border-radius: var(--radius-full);
+  background: var(--primary);
+  color: var(--text);
+  font-size: var(--fs-button);
+  font-weight: 600;
+  line-height: 1;
+}
+
+.youtube-link:hover {
+  background: var(--primary-hover);
+  text-decoration: none;
+}
+
+/* --------------------------------------------------------------------------
+   10. 表单（搜索区，当前在 HTML 中注释保留）
+   -------------------------------------------------------------------------- */
+.search-container {
+  display: flex;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+}
+
+.input {
+  flex: 1;
+  height: var(--space-12);
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-size: var(--fs-body);
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.input::placeholder {
+  color: var(--text-muted);
+}
+
+.input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(236, 68, 93, 0.18);
+}
+
+#error-container {
+  margin-bottom: var(--space-6);
+  padding: var(--space-4);
+  border: 1px solid var(--primary);
+  border-radius: var(--radius-sm);
+  background: var(--primary-soft);
+  color: var(--text);
+  font-size: var(--fs-small);
+  text-align: center;
+}
+
+/* --------------------------------------------------------------------------
+   11. 页脚
+   -------------------------------------------------------------------------- */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: var(--space-12) 0;
+  text-align: center;
+}
+
+.footer p {
+  font-size: var(--fs-caption);
+  line-height: var(--lh-caption);
+  color: var(--text-muted);
+}
+
+/* --------------------------------------------------------------------------
+   12. 响应式：≤640px 收窄留白、标题降级、网格单列
+   -------------------------------------------------------------------------- */
+@media (max-width: 640px) {
+  :root {
+    --fs-h1: 32px;
+    --fs-h2: 24px;
+    --space-24: 64px;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+  }
+
+  .meals-container {
+    grid-template-columns: 1fr;
+  }
+}

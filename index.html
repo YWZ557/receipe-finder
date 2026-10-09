@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>zyw 的前端网页作品集</title>
+    <link rel="stylesheet" href="style.css" class="css">
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    />
+</head>
+<body id="top">
+
+    <!-- ============ 导航栏 ============ -->
+    <nav class="nav">
+        <div class="container nav-inner">
+            <a class="brand" href="#top">
+                <span class="brand-dot" aria-hidden="true"></span>zyw
+            </a>
+            <a class="nav-link" href="#works">作品</a>
+        </div>
+    </nav>
+
+    <main class="container">
+
+        <!-- ============ 首屏 ============ -->
+        <header class="hero">
+            <span class="hero-dot" aria-hidden="true"></span>
+            <h1 class="hero-title">把想法做成页面，把页面做成作品</h1>
+            <p class="hero-lead">这是 zyw 的前端练习作品集。点开任意一张卡片，就会在新标签页打开对应的页面。</p>
+
+            <div class="hero-actions">
+                <a class="btn btn-primary" href="#works">查看作品</a>
+                <a class="btn btn-secondary" href="https://explore-zyw7.vercel.app/" target="_blank" rel="noopener noreferrer">在线演示</a>
+            </div>
+
+            <p class="hero-note">无需登录，点开即看 · 全部为个人练习作品</p>
+        </header>
+
+        <!-- 搜索区（暂时关闭，保留结构给 script.js 复用）
+        <div class="search-container">
+            <input class="input" type="text" id="search-input" placeholder="Search for meals or keywords">
+            <button class="btn btn-primary" id="search-btn">Search</button>
+        </div>
+        -->
+
+        <div id="error-container" class="hidden">
+            <p>No meals found. Try another input.</p>
+        </div>
+
+        <div id="result-heading" class="result-heading hidden"></div>
+
+        <!-- ============ 作品网格 ============ -->
+        <section id="works" class="works">
+            <h2 class="section-title">我的作品</h2>
+
+            <div id="meals" class="meals-container">
+
+                <article class="meal" data-url="https://quiz-game-zyw7.vercel.app/">
+                    <img src="./image/Screenshot_3.png" alt="Quiz Time 页面预览">
+                    <div class="meal-info">
+                        <div class="meal-head">
+                            <h3 class="meal-title">Quiz Time</h3>
+                            <span class="meal-category">Quiz</span>
+                        </div>
+                        <p class="meal-desc">用原生 JS 写的答题小游戏，含计分、进度与即时对错反馈。</p>
+                    </div>
+                </article>
+
+                <article class="meal" data-url="https://todo-zyw7.vercel.app/">
+                    <img src="./image/Screenshot_1.png" alt="Register Form 页面预览">
+                    <div class="meal-info">
+                        <div class="meal-head">
+                            <h3 class="meal-title">Register Form</h3>
+                            <span class="meal-category">Form</span>
+                        </div>
+                        <p class="meal-desc">带实时校验的注册表单，覆盖必填、格式与错误提示状态。</p>
+                    </div>
+                </article>
+
+                <article class="meal" data-url="https://explore-zyw7.vercel.app/">
+                    <img src="./image/Screenshot_2.png" alt="Recipe Finder 页面预览">
+                    <div class="meal-info">
+                        <div class="meal-head">
+                            <h3 class="meal-title">Recipe Finder</h3>
+                            <span class="meal-category">Recipe</span>
+                        </div>
+                        <p class="meal-desc">调用 TheMealDB 接口的菜谱搜索页，支持关键词检索与详情查看。</p>
+                    </div>
+                </article>
+
+                <!-- 菜谱详情面板（默认隐藏，保留给 script.js 使用） -->
+                <div id="meal-details" class="panel hidden">
+                    <button id="back-btn" class="btn btn-ghost"><i class="fa-solid fa-arrow-left"></i> Back to recipes</button>
+                    <div class="meal-details-content">
+                        <img src="https://www.themealdb.com/images/media/meals/wvqpwt1468339226.jpg" alt="Mediterranean Pasta Salad" class="meal-details-img">
+                        <h2 class="meal-details-title">Mediterranean Pasta Salad</h2>
+                        <div class="meal-details-category">
+                            <span class="chip">Seafood</span>
+                        </div>
+                        <div class="meal-details-instructions">
+                            <h3>Instructions</h3>
+                            <p>Bring a large saucepan of salted water to the boil. Add the pasta, stir once and cook for about 10 minutes or as directed on the packet. Meanwhile, wash the tomatoes and cut into quarters. Slice the olives. Wash the basil.</p>
+                        </div>
+                        <div class="meal-details-ingredients">
+                            <h3>Ingredients</h3>
+                            <ul class="ingredients-list">
+                                <li><i class="fas fa-check-circle"></i> 200 g mozzarella balls</li>
+                                <li><i class="fas fa-check-circle"></i> 250 g baby plum tomatoes</li>
+                                <li><i class="fas fa-check-circle"></i> 1 bunch fresh basil</li>
+                                <li><i class="fas fa-check-circle"></i> 350 g farfalle</li>
+                                <li><i class="fas fa-check-circle"></i> 3 tablespoons extra virgin olive oil</li>
+                                <li><i class="fas fa-check-circle"></i> 40 g Green Olives</li>
+                                <li><i class="fas fa-check-circle"></i> 200 g tuna</li>
+                                <li><i class="fas fa-check-circle"></i> to taste salt</li>
+                                <li><i class="fas fa-check-circle"></i> to taste pepper</li>
+                            </ul>
+                        </div>
+                        <a href="https://www.youtube.com/watch?v=e52IL8zYmaE" target="_blank" rel="noopener noreferrer" class="youtube-link">
+                            <i class="fab fa-youtube"></i> Watch Video
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ============ 页脚 ============ -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2026 zyw · 前端练习作品，持续更新中</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
