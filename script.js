@@ -74,7 +74,10 @@ async function handleMealClick(e) {
   const mealEl = e.target.closest(".meal");
   if (!mealEl) return;
 
-  // 作品集卡片：带 data-url 的直接跳转
+  // 作品集卡片是真实链接 <a href target="_blank">，交给浏览器原生处理，避免重复打开
+  if (mealEl.tagName === "A") return;
+
+  // 兼容用 data-url 标记的卡片
   const url = mealEl.getAttribute("data-url");
   if (url) {
     window.open(url, "_blank");
@@ -82,6 +85,7 @@ async function handleMealClick(e) {
   }
 
   const mealId = mealEl.getAttribute("data-meal-id");
+  if (!mealId) return; // 避免请求 lookup.php?i=null
 
   try {
     const response = await fetch(`${LOOKUP_URL}${mealId}`);
